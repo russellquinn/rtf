@@ -14,9 +14,9 @@ module RTF
     # ==== Parameters
     # fonts::    A reference to the document fonts table. May be nil if no
     #            fonts are used.
-    # colours::  A reference to the document colour table. May be nil if no
-    #            colours are used.
-    def prefix(fonts, colours)
+    # colors::  A reference to the document color table. May be nil if no
+    #            colors are used.
+    def prefix(fonts, colors)
       nil
     end
 
@@ -27,9 +27,9 @@ module RTF
     # ==== Parameters
     # fonts::    A reference to the document fonts table. May be nil if no
     #            fonts are used.
-    # colours::  A reference to the document colour table. May be nil if no
-    #            colours are used.
-    def suffix(fonts, colours)
+    # colors::  A reference to the document color table. May be nil if no
+    #            colors are used.
+    def suffix(fonts, colors)
       nil
     end
 

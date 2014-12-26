@@ -173,13 +173,13 @@ module RTF
                   "CommandNode#apply() method.")
       end
 
-      # Store fonts and colours.
-      root.colours << style.foreground unless style.foreground.nil?
-      root.colours << style.background unless style.background.nil?
+      # Store fonts and colors.
+      root.colors << style.foreground unless style.foreground.nil?
+      root.colors << style.background unless style.background.nil?
       root.fonts << style.font unless style.font.nil?
 
       # Generate the command node.
-      node = CommandNode.new(self, style.prefix(root.fonts, root.colours))
+      node = CommandNode.new(self, style.prefix(root.fonts, root.colors))
       yield node if block_given?
       self.store(node)
     end
@@ -297,19 +297,19 @@ module RTF
       end
     end
 
-    # This method provides a short cut means of creating a foreground colour
+    # This method provides a short cut means of creating a foreground color
     # command node. The method accepts a block that will be passed a single
-    # parameter which will be a reference to the foreground colour node
-    # created. After the block is complete the foreground colour node is
+    # parameter which will be a reference to the foreground color node
+    # created. After the block is complete the foreground color node is
     # appended to the end of the child nodes on the object that the method
     # is called against.
     #
     # ==== Parameters
-    # colour::  The foreground colour to be applied by the command.
-    def foreground(colour)
+    # color::  The foreground color to be applied by the command.
+    def foreground(color)
       style            = CharacterStyle.new
-      style.foreground = colour
-      root.colours << colour
+      style.foreground = color
+      root.colors << color
       if block_given?
         apply(style) {|node| yield node}
       else
@@ -317,19 +317,19 @@ module RTF
       end
     end
 
-    # This method provides a short cut means of creating a background colour
+    # This method provides a short cut means of creating a background color
     # command node. The method accepts a block that will be passed a single
-    # parameter which will be a reference to the background colour node
-    # created. After the block is complete the background colour node is
+    # parameter which will be a reference to the background color node
+    # created. After the block is complete the background color node is
     # appended to the end of the child nodes on the object that the method
     # is called against.
     #
     # ==== Parameters
-    # colour::  The background colour to be applied by the command.
-    def background(colour)
+    # color::  The background color to be applied by the command.
+    def background(color)
       style            = CharacterStyle.new
-      style.background = colour
-      root.colours << colour
+      style.background = color
+      root.colors << color
       if block_given?
         apply(style) {|node| yield node}
       else
@@ -337,22 +337,22 @@ module RTF
       end
     end
 
-    # This method provides a short cut menas of creating a colour node that
-    # deals with foreground and background colours. The method accepts a
+    # This method provides a short cut menas of creating a color node that
+    # deals with foreground and background colors. The method accepts a
     # block that will be passed a single parameter which will be a reference
-    # to the colour node created. After the block is complete the colour node
+    # to the color node created. After the block is complete the color node
     # is append to the end of the child nodes on the object that the method
     # is called against.
     #
     # ==== Parameters
-    # fore::  The foreground colour to be applied by the command.
-    # back::  The background colour to be applied by the command.
-    def colour(fore, back)
+    # fore::  The foreground color to be applied by the command.
+    # back::  The background color to be applied by the command.
+    def color(fore, back)
       style            = CharacterStyle.new
       style.foreground = fore
       style.background = back
-      root.colours << fore
-      root.colours << back
+      root.colors << fore
+      root.colors << back
       if block_given?
         apply(style) {|node| yield node}
       else
@@ -377,7 +377,7 @@ module RTF
     end
 
     alias :write  :<<
-    alias :color  :colour
+    alias :color  :color
     alias :split? :split
     alias :wrap?  :wrap
   end

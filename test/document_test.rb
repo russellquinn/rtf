@@ -40,10 +40,10 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal @fonts[0], documents[2].fonts[0]
     assert_equal @fonts[1], documents[3].fonts[0]
 
-    assert_equal 0, documents[0].colours.size
-    assert_equal 0, documents[1].colours.size
-    assert_equal 0, documents[2].colours.size
-    assert_equal 0, documents[3].colours.size
+    assert_equal 0, documents[0].colors.size
+    assert_equal 0, documents[1].colors.size
+    assert_equal 0, documents[2].colors.size
+    assert_equal 0, documents[3].colors.size
 
     assert_equal Document::LC_ENGLISH_UK, documents[0].language
     assert_equal Document::LC_ENGLISH_UK, documents[1].language

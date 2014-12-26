@@ -4,12 +4,12 @@ require 'test_helper'
 class TableNodeTest < Test::Unit::TestCase
   def setup
     @document = Document.new(Font.new(Font::ROMAN, 'Times New Roman'))
-    @colours  = []
+    @colors  = []
 
-    @colours << Colour.new(200, 200, 200)
-    @colours << Colour.new(200, 0, 0)
-    @colours << Colour.new(0, 200, 0)
-    @colours << Colour.new(0, 0, 200)
+    @colors << Color.new(200, 200, 200)
+    @colors << Color.new(200, 0, 0)
+    @colors << Color.new(0, 200, 0)
+    @colors << Color.new(0, 0, 200)
   end
 
   def test_basics
@@ -29,41 +29,41 @@ class TableNodeTest < Test::Unit::TestCase
     assert_equal 250, table.cell_margin
   end
 
-  def test_colouring
+  def test_coloring
     table = TableNode.new(@document, 3, 3)
 
-    table.row_shading_colour(1, @colours[0])
-    assert_nil   table[0][0].shading_colour
-    assert_nil   table[0][1].shading_colour
-    assert_nil   table[0][2].shading_colour
-    assert_equal @colours[0], table[1][0].shading_colour
-    assert_equal @colours[0], table[1][1].shading_colour
-    assert_equal @colours[0], table[1][2].shading_colour
-    assert_nil   table[2][0].shading_colour
-    assert_nil   table[2][1].shading_colour
-    assert_nil   table[2][2].shading_colour
+    table.row_shading_color(1, @colors[0])
+    assert_nil   table[0][0].shading_color
+    assert_nil   table[0][1].shading_color
+    assert_nil   table[0][2].shading_color
+    assert_equal @colors[0], table[1][0].shading_color
+    assert_equal @colors[0], table[1][1].shading_color
+    assert_equal @colors[0], table[1][2].shading_color
+    assert_nil   table[2][0].shading_color
+    assert_nil   table[2][1].shading_color
+    assert_nil   table[2][2].shading_color
 
-    table.column_shading_colour(2, @colours[1])
-    assert_nil   table[0][0].shading_colour
-    assert_nil   table[0][1].shading_colour
-    assert_equal @colours[1], table[0][2].shading_colour
-    assert_equal @colours[0], table[1][0].shading_colour
-    assert_equal @colours[0], table[1][1].shading_colour
-    assert_equal @colours[1], table[1][2].shading_colour
-    assert_nil   table[2][0].shading_colour
-    assert_nil   table[2][1].shading_colour
-    assert_equal @colours[1], table[2][2].shading_colour
+    table.column_shading_color(2, @colors[1])
+    assert_nil   table[0][0].shading_color
+    assert_nil   table[0][1].shading_color
+    assert_equal @colors[1], table[0][2].shading_color
+    assert_equal @colors[0], table[1][0].shading_color
+    assert_equal @colors[0], table[1][1].shading_color
+    assert_equal @colors[1], table[1][2].shading_color
+    assert_nil   table[2][0].shading_color
+    assert_nil   table[2][1].shading_color
+    assert_equal @colors[1], table[2][2].shading_color
 
-    table.shading_colour(@colours[2]) {|cell, x, y| x == y}
-    assert_equal @colours[2], table[0][0].shading_colour
-    assert_nil   table[0][1].shading_colour
-    assert_equal @colours[1], table[0][2].shading_colour
-    assert_equal @colours[0], table[1][0].shading_colour
-    assert_equal @colours[2], table[1][1].shading_colour
-    assert_equal @colours[1], table[1][2].shading_colour
-    assert_nil   table[2][0].shading_colour
-    assert_nil   table[2][1].shading_colour
-    assert_equal @colours[2], table[2][2].shading_colour
+    table.shading_color(@colors[2]) {|cell, x, y| x == y}
+    assert_equal @colors[2], table[0][0].shading_color
+    assert_nil   table[0][1].shading_color
+    assert_equal @colors[1], table[0][2].shading_color
+    assert_equal @colors[0], table[1][0].shading_color
+    assert_equal @colors[2], table[1][1].shading_color
+    assert_equal @colors[1], table[1][2].shading_color
+    assert_nil   table[2][0].shading_color
+    assert_nil   table[2][1].shading_color
+    assert_equal @colors[2], table[2][2].shading_color
   end
 
   def test_border_width

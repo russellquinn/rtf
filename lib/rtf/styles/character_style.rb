@@ -46,9 +46,9 @@ module RTF
     # ==== Parameters
     # fonts::    A reference to a FontTable containing any fonts used by the
     #            style (may be nil if no fonts used).
-    # colours::  A reference to a ColourTable containing any colours used by
-    #            the style (may be nil if no colours used).
-    def prefix(fonts, colours)
+    # colors::  A reference to a ColorTable containing any colors used by
+    #            the style (may be nil if no colors used).
+    def prefix(fonts, colors)
       text = StringIO.new
 
       text << '\b' if @bold
@@ -59,8 +59,8 @@ module RTF
       text << '\strike' if @strike
       text << '\sub' if @subscript
       text << '\v' if @hidden
-      text << "\\cf#{colours.index(@foreground)}" if @foreground != nil
-      text << "\\cb#{colours.index(@background)}" if @background != nil
+      text << "\\cf#{colors.index(@foreground)}" if @foreground != nil
+      text << "\\cb#{colors.index(@background)}" if @background != nil
       text << "\\f#{fonts.index(@font)}" if @font != nil
       text << "\\fs#{@font_size.to_i}" if @font_size != nil
       text << '\rtlch' if @flow == RIGHT_TO_LEFT

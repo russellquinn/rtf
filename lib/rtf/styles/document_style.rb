@@ -54,7 +54,7 @@ module RTF
     #
     # ==== Parameters
     # document::  A reference to the document using the style.
-    def prefix(fonts=nil, colours=nil)
+    def prefix(fonts=nil, colors=nil)
       text = StringIO.new
 
       if orientation == LANDSCAPE

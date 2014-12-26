@@ -55,35 +55,35 @@ module RTF
       self.each {|row| row.border_width = width}
     end
 
-    # This method assigns a shading colour to a specified row within a
+    # This method assigns a shading color to a specified row within a
     # TableNode object.
     #
     # ==== Parameters
     # index::   The offset from the first row of the row to have shading
     #           applied to it.
-    # colour::  A reference to a Colour object representing the shading colour
+    # color::  A reference to a Color object representing the shading color
     #           to be used. Set to nil to clear shading.
-    def row_shading_colour(index, colour)
+    def row_shading_color(index, color)
       row = self[index]
-      row.shading_colour = colour if row != nil
+      row.shading_color = color if row != nil
     end
 
-    # This method assigns a shading colour to a specified column within a
+    # This method assigns a shading color to a specified column within a
     # TableNode object.
     #
     # ==== Parameters
     # index::   The offset from the first column of the column to have shading
     #           applied to it.
-    # colour::  A reference to a Colour object representing the shading colour
+    # color::  A reference to a Color object representing the shading color
     #           to be used. Set to nil to clear shading.
-    def column_shading_colour(index, colour)
+    def column_shading_color(index, color)
       self.each do |row|
         cell = row[index]
-        cell.shading_colour = colour if cell != nil
+        cell.shading_color = color if cell != nil
       end
     end
 
-    # This method provides a means of assigning a shading colour to a
+    # This method provides a means of assigning a shading color to a
     # selection of cells within a table. The method accepts a block that
     # takes three parameters - a TableCellNode representing a cell within the
     # table, an integer representing the x offset of the cell and an integer
@@ -91,15 +91,15 @@ module RTF
     # shading will be applied to the cell.
     #
     # ==== Parameters
-    # colour::  A reference to a Colour object representing the shading colour
+    # color::  A reference to a Color object representing the shading color
     #           to be applied. Set to nil to remove shading.
-    def shading_colour(colour)
+    def shading_color(color)
       if block_given?
         0.upto(self.size - 1) do |x|
           row = self[x]
           0.upto(row.size - 1) do |y|
             apply = yield row[y], x, y
-            row[y].shading_colour = colour if apply
+            row[y].shading_color = color if apply
           end
         end
       end
@@ -131,8 +131,8 @@ module RTF
       text.string.sub(/\\row(?!.*\\row)/m, "\\lastrow\n\\row")
     end
 
-    alias :column_shading_color :column_shading_colour
-    alias :row_shading_color :row_shading_colour
-    alias :shading_color :shading_colour
+    alias :column_shading_color :column_shading_color
+    alias :row_shading_color :row_shading_color
+    alias :shading_color :shading_color
   end
 end

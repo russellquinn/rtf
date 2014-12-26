@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Colour class unit test class.
+# Color class unit test class.
 class ImageNodeTest < Test::Unit::TestCase
   def setup
     @document = Document.new(Font.new(Font::ROMAN, 'Arial'))

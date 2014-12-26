@@ -47,13 +47,13 @@ module RTF
       RTFError.fire("Table row nodes cannot have their parent changed.")
     end
 
-    # This method sets the shading colour for a row.
+    # This method sets the shading color for a row.
     #
     # ==== Parameters
-    # colour::  A reference to the Colour object that represents the new
-    #           shading colour. Set to nil to switch shading off.
-    def shading_colour=(colour)
-      self.each {|cell| cell.shading_colour = colour}
+    # color::  A reference to the Color object that represents the new
+    #           shading color. Set to nil to switch shading off.
+    def shading_color=(color)
+      self.each {|cell| cell.shading_color = color}
     end
 
     # This method overloads the store method inherited from the ContainerNode
@@ -74,14 +74,14 @@ module RTF
       text << "\\trowd\\tgraph#{parent.cell_margin}"
       self.each do |entry|
         widths = entry.border_widths
-        colour = entry.shading_colour
+        color = entry.shading_color
 
         text << "\n"
         text << "\\clbrdrt\\brdrw#{widths[0]}\\brdrs" if widths[0] != 0
         text << "\\clbrdrl\\brdrw#{widths[3]}\\brdrs" if widths[3] != 0
         text << "\\clbrdrb\\brdrw#{widths[2]}\\brdrs" if widths[2] != 0
         text << "\\clbrdrr\\brdrw#{widths[1]}\\brdrs" if widths[1] != 0
-        text << "\\clcbpat#{root.colours.index(colour)}" if colour != nil
+        text << "\\clcbpat#{root.colors.index(color)}" if color != nil
         text << "\\cellx#{entry.width + offset}"
         temp << "\n#{entry.to_rtf}"
         offset += entry.width

@@ -56,9 +56,9 @@ module RTF
     # ==== Parameters
     # fonts::    A reference to a FontTable containing any fonts used by the
     #            style (may be nil if no fonts used).
-    # colours::  A reference to a ColourTable containing any colours used by
-    #            the style (may be nil if no colours used).
-    def prefix(fonts, colours)
+    # colors::  A reference to a ColorTable containing any colors used by
+    #            the style (may be nil if no colors used).
+    def prefix(fonts, colors)
       text = StringIO.new
 
       text << "\\#{@justification.id2name}"

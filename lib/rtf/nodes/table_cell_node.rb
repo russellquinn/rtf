@@ -18,7 +18,7 @@ module RTF
     # Width of cell
     attr_accessor :width
     # Attribute accessor.
-    attr_reader :shading_colour, :style
+    attr_reader :shading_color, :style
 
     # This is the constructor for the TableCellNode class.
     #
@@ -44,7 +44,7 @@ module RTF
                          (right != nil && right > 0) ? right : nil,
                          (bottom != nil && bottom > 0) ? bottom : nil,
                          (left != nil && left > 0) ? left : nil]
-      @shading_colour = nil
+      @shading_color = nil
       self.style      = style
     end
 
@@ -135,15 +135,15 @@ module RTF
       end
     end
 
-    # This method alters the shading colour associated with a TableCellNode
+    # This method alters the shading color associated with a TableCellNode
     # object.
     #
     # ==== Parameters
-    # colour::  A reference to the Colour object to use in shading the cell.
+    # color::  A reference to the Color object to use in shading the cell.
     #           Assign nil to clear cell shading.
-    def shading_colour=(colour)
-      root.colours << colour
-      @shading_colour = colour
+    def shading_color=(color)
+      root.colors << color
+      @shading_color = color
     end
 
     # This method retrieves an array with the cell border width settings.

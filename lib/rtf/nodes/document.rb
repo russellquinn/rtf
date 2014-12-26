@@ -3,7 +3,7 @@ require 'stringio'
 module RTF
   # This class represents an RTF document. In actuality it is just a
   # specialised Node type that cannot be assigned a parent and that holds
-  # document font, colour and information tables.
+  # document font, color and information tables.
   class Document < CommandNode
     # A definition for a document character set setting.
     CS_ANSI                          = :ansi
@@ -150,7 +150,7 @@ module RTF
     LC_VIETNAMESE                    = 1066
 
     # Attribute accessor.
-    attr_reader :fonts, :lists, :colours, :information, :character_set,
+    attr_reader :fonts, :lists, :colors, :information, :character_set,
             :language, :style
 
     # Attribute mutator.
@@ -172,7 +172,7 @@ module RTF
       @fonts         = FontTable.new(font)
       @lists         = ListTable.new
       @default_font  = 0
-      @colours       = ColourTable.new
+      @colors       = ColorTable.new
       @information   = Information.new
       @character_set = character
       @language      = language
@@ -322,7 +322,7 @@ module RTF
       text << "\\deflang#{@language}" if !@language.nil?
       text << "\\plain\\fs24\\fet1"
       text << "\n#{@fonts.to_rtf}"
-      text << "\n#{@colours.to_rtf}" if @colours.size > 0
+      text << "\n#{@colors.to_rtf}" if @colors.size > 0
       text << "\n#{@information.to_rtf}"
       text << "\n#{@lists.to_rtf}"
       if @headers.compact != []

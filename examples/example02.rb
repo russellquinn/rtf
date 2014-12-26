@@ -6,8 +6,8 @@ require 'rtf'
 
 include RTF
 
-colours = [Colour.new(0, 0, 0),
-        Colour.new(255, 255, 255)]
+colors = [Color.new(0, 0, 0),
+        Color.new(255, 255, 255)]
         
 # Create the used styles.
 styles                           = {}

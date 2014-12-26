@@ -14,7 +14,7 @@ examples/rubyrtf.jpg
 examples/rubyrtf.png
 ifad-rtf.gemspec
 lib/rtf.rb
-lib/rtf/colour.rb
+lib/rtf/color.rb
 lib/rtf/converters.rb
 lib/rtf/converters/html.rb
 lib/rtf/font.rb
@@ -31,8 +31,8 @@ test/fixtures/png1.png
 test/fixtures/png2.png
 test/helper_tests.rb
 test/test_character_style.rb
-test/test_colour.rb
-test/test_colour_table.rb
+test/test_color.rb
+test/test_color_table.rb
 test/test_command_node.rb
 test/test_container_node.rb
 test/test_document.rb

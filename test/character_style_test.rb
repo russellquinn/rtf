@@ -31,8 +31,8 @@ class CharacterStyleTest < Test::Unit::TestCase
   def test_mutators
     style = CharacterStyle.new
 
-    style.background = Colour.new(100, 100, 100)
-    assert_equal Colour.new(100, 100, 100), style.background
+    style.background = Color.new(100, 100, 100)
+    assert_equal Color.new(100, 100, 100), style.background
 
     style.bold = true
     assert_true style.bold
@@ -49,8 +49,8 @@ class CharacterStyleTest < Test::Unit::TestCase
     style.font_size = 38
     assert_equal 38, style.font_size
 
-    style.foreground = Colour.new(250, 200, 150)
-    assert_equal Colour.new(250, 200, 150), style.foreground
+    style.foreground = Color.new(250, 200, 150)
+    assert_equal Color.new(250, 200, 150), style.foreground
 
     style.hidden = true
     assert_true style.hidden
@@ -73,11 +73,11 @@ class CharacterStyleTest < Test::Unit::TestCase
 
   def test_prefix
     fonts   = FontTable.new(Font.new(Font::ROMAN, 'Arial'))
-    colours = ColourTable.new(Colour.new(100, 100, 100))
+    colors = ColorTable.new(Color.new(100, 100, 100))
     style   = CharacterStyle.new
 
-    style.background = colours[0]
-    assert_equal '\cb1', style.prefix(fonts, colours)
+    style.background = colors[0]
+    assert_equal '\cb1', style.prefix(fonts, colors)
 
     style.background = nil
     style.bold       = true
@@ -93,15 +93,15 @@ class CharacterStyleTest < Test::Unit::TestCase
 
     style.flow = nil
     style.font = fonts[0]
-    assert_equal '\f0', style.prefix(fonts, colours)
+    assert_equal '\f0', style.prefix(fonts, colors)
 
     style.font      = nil
     style.font_size = 40
     assert_equal '\fs40', style.prefix(nil, nil)
 
     style.font_size  = nil
-    style.foreground = colours[0]
-    assert_equal '\cf1', style.prefix(fonts, colours)
+    style.foreground = colors[0]
+    assert_equal '\cf1', style.prefix(fonts, colors)
 
     style.foreground = nil
     style.hidden     = true
@@ -121,16 +121,16 @@ class CharacterStyleTest < Test::Unit::TestCase
 
     style.subscript   = false
     style.superscript = true
-    assert_equal '\super', style.prefix(fonts, colours)
+    assert_equal '\super', style.prefix(fonts, colors)
  
     style.superscript = false
     style.underline   = true
-    assert_equal '\ul', style.prefix(fonts, colours)
+    assert_equal '\ul', style.prefix(fonts, colors)
 
     style.flow       = CharacterStyle::RIGHT_TO_LEFT
-    style.background = colours[0]
+    style.background = colors[0]
     style.font_size  = 18
     style.subscript  = true
-    assert_equal '\ul\sub\cb1\fs18\rtlch', style.prefix(fonts, colours)
+    assert_equal '\ul\sub\cb1\fs18\rtlch', style.prefix(fonts, colors)
   end
 end
