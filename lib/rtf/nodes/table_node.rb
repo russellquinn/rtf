@@ -18,31 +18,31 @@ module RTF
     #            columns.
     def initialize(parent, *args, &block)
       if args.size>=2
-      rows=args.shift
-      columns=args.shift
-      widths=args
-      super(parent) do
-        entries = []
-        rows.times {entries.push(TableRowNode.new(self, columns, *widths))}
-        entries
-      end
+        rows=args.shift
+        columns=args.shift
+        widths=args
+        super(parent) do
+          children = []
+          rows.times {children.push(TableRowNode.new(self, columns, *widths))}
+          children
+        end
 
       elsif block
-       block.arity<1 ? self.instance_eval(&block) : block.call(self)
+        block.arity<1 ? self.instance_eval(&block) : block.call(self)
       else
-       raise "You should use 0 or >2 args"
+        raise "You should use 0 or >2 args"
       end
       @cell_margin = 100
     end
 
     # Attribute accessor.
     def rows
-      entries.size
+      children.size
     end
 
     # Attribute accessor.
     def columns
-      entries[0].length
+      children[0].length
     end
 
     # This method assigns a border width setting to all of the sides on all

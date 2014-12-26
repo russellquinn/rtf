@@ -2,7 +2,6 @@ module RTF
   # This class represents a Node that can contain other Node objects. Its a
   # base class for more specific Node types.
   class ContainerNode < Node
-    include Enumerable
     extend Forwardable
 
     # Children elements of the node

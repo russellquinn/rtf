@@ -15,17 +15,17 @@ module RTF
     #           columns
     def initialize(table, cells, *widths)
       super(table) do
-        entries = []
+        children = []
         cells.times do |index|
-          entries.push(TableCellNode.new(self, widths[index]))
+          children.push(TableCellNode.new(self, widths[index]))
         end
-        entries
+        children
       end
     end
 
     # Attribute accessors
     def length
-      entries.size
+      children.size
     end
 
     # This method assigns a border width setting to all of the sides on all
