@@ -44,7 +44,7 @@ module RTF
     # ==== Parameters
     # parent::  A reference to the new node parent.
     def parent=(parent)
-      RTFError.fire("Table row nodes cannot have their parent changed.")
+      raise RTF::RTFError, 'Table row nodes cannot have their parent changed.'
     end
 
     # This method sets the shading color for a row.
@@ -61,9 +61,9 @@ module RTF
     #
     # ==== Parameters
     # node::  A reference to the node to be added.
-    #def store(node)
-    #   RTFError.fire("Table row nodes cannot have nodes added to.")
-    #end
+    def store(node)
+      raise RTF::RTFError, 'Table row nodes cannot have nodes added to.'
+    end
 
     # This method generates the RTF document text for a TableCellNode object.
     def to_rtf

@@ -14,11 +14,11 @@ module RTF
 
     def initialize(template, marker, level)
       unless marker.kind_of? ListMarker
-        RTFError.fire("Invalid marker #{marker.inspect}")
+        raise RTF::RTFError, "Invalid marker #{marker.inspect}"
       end
 
       unless ValidLevels.include? level
-        RTFError.fire("Invalid list level: #{level}")
+        raise RTF::RTFError, "Invalid list level: #{level}"
       end
 
       @template = template 

@@ -21,17 +21,11 @@ module RTF
     # RTFError::  Generated whenever an invalid intensity setting is
     #             specified for the red, green or blue values.
     def initialize(red, green, blue)
-      if !red.kind_of?(Integer) || red < 0 || red > 255
-        RTFError.fire("Invalid red intensity setting ('#{red}') specified "\
-                  "for a Color object.")
-      end
-      if !green.kind_of?(Integer) || green < 0 || green > 255
-        RTFError.fire("Invalid green intensity setting ('#{green}') "\
-                  "specified for a Color object.")
-      end
-      if !blue.kind_of?(Integer) || blue < 0 || blue > 255
-        RTFError.fire("Invalid blue intensity setting ('#{blue}') "\
-                  "specified for a Color object.")
+      %w(red green blue).each do |name|
+        color = eval(name)
+        if !color.kind_of?(Integer) || !(0..255).include?(color)
+          raise RTF::RTFError, "Invalid #{name} intensity setting '#{color}' specified for a Color object."
+        end
       end
 
       @red   = red

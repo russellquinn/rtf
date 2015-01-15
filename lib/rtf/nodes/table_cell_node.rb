@@ -58,8 +58,8 @@ module RTF
     # ==== Exceptions
     # RTFError::  Generated whenever an invalid style setting is specified.
     def style=(style)
-      if !style.nil? and !style.is_paragraph_style?
-        RTFError.fire("Non-paragraph style specified for TableCellNode constructor.")
+      if !style.nil? && !style.is_paragraph_style?
+        raise RTF::RTFError, 'Non-paragraph style specified for TableCellNode constructor.'
       end
       @style = style
     end
@@ -180,7 +180,7 @@ module RTF
     # ==== Parameters
     # style::  The paragraph style, ignored
     def paragraph(style=nil)
-      RTFError.fire("TableCellNode#paragraph() called. Table cells cannot contain paragraphs.")
+      raise RTF::RTFError, "TableCellNode#paragraph() called. Table cells cannot contain paragraphs."
     end
 
     # This method overloads the parent= method inherited from the Node class
@@ -189,7 +189,7 @@ module RTF
     # ==== Parameters
     # parent::  A reference to the new node parent.
     def parent=(parent)
-      RTFError.fire("Table cell nodes cannot have their parent changed.")
+      raise RTF::RTFError, "Table cell nodes cannot have their parent changed."
     end
 
     # This method overrides the table method inherited from CommandNode to
@@ -201,7 +201,7 @@ module RTF
     # *widths::  One or more integers representing the widths for the table
     #            columns.
     def table(rows, columns, *widths)
-      RTFError.fire("TableCellNode#table() called. Nested tables not allowed.")
+      raise RTF::RTFError, "TableCellNode#table() called. Nested tables not allowed."
     end
 
     # This method generates the RTF document text for a TableCellNode object.

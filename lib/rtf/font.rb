@@ -35,7 +35,7 @@ module RTF
     def initialize(family, name)
       # Check that a valid family has been provided.
       if ![MODERN, ROMAN, SWISS, NIL].include?(family)
-        RTFError::fire("Unknown font family specified for Font object.")
+        raise RTF::RTFError, 'Unknown font family specified for Font object.'
       end
       @family = family
       @name   = name

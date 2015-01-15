@@ -34,7 +34,7 @@ module RTF
 
     # This method generates the RTF text for a ContainerNode object.
     def to_rtf
-      RTFError.fire("#{self.class.name}.to_rtf method not yet implemented.")
+      raise RTF::RTFError, "#{self.class.name}.to_rtf method not yet implemented."
     end
   end
 end

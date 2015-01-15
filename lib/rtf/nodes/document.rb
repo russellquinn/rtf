@@ -292,7 +292,7 @@ module RTF
     # ==== Exceptions
     # RTFError::  Generated whenever this method is called.
     def parent=(parent)
-      RTFError.fire("Document objects may not have a parent.")
+      raise RTF::RTFError, 'Document objects may not have a parent.'
     end
 
     # This method inserts a page break into a document.

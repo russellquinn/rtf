@@ -40,7 +40,7 @@ module RTF
     # ==== Exceptions
     # RTFError::  Always generated whenever this method is called.
     def footnote(text)
-      RTFError.fire("Footnotes are not permitted in page headers.")
+      raise RTF::RTFError, 'Footnotes are not permitted in page headers.'
     end
   end
 end

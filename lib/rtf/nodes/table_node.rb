@@ -111,7 +111,7 @@ module RTF
     # ==== Parameters
     # node::  A reference to the node to be added.
     def store(node)
-      RTFError.fire("Table nodes cannot have nodes added to.")
+      raise RTF::RTFError, 'Table nodes cannot have nodes added to them.'
     end
 
     # This method generates the RTF document text for a TableCellNode object.

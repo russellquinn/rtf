@@ -169,8 +169,7 @@ module RTF
     def apply(style)
       # Check the input style.
       if !style.is_character_style?
-        RTFError.fire("Non-character style specified to the "\
-                  "CommandNode#apply() method.")
+        raise RTF::RTFError, 'Non-character style specified to the CommandNode#apply() method.'
       end
 
       # Store fonts and colors.

@@ -63,18 +63,11 @@ module RTF
       @source = source.path if source.instance_of?(File)
 
       # Check the file's existence and accessibility.
-      if !File.exist?(@source)
-        RTFError.fire("Unable to find the #{File.basename(@source)} file.")
-      end
-      if !File.readable?(@source)
-        RTFError.fire("Access to the #{File.basename(@source)} file denied.")
-      end
+      raise RTF::RTFError, "Unable to find the #{File.basename(@source)} file." if !File.exist?(@source)
+      raise RTF::RTFError, "Access to the #{File.basename(@source)} file denied." if !File.readable?(@source)
 
       @type = get_file_type
-      if @type == nil
-        RTFError.fire("The #{File.basename(@source)} file contains an "\
-                  "unknown or unsupported image type.")
-      end
+      raise RTF::RTFError, "The #{File.basename(@source)} file contains an unknown or unsupported image type." if @type.nil?
 
       @width, @height = get_dimensions
     end

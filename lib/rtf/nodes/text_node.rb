@@ -17,9 +17,8 @@ module RTF
     #             the method.
     def initialize(parent, text=nil)
       super(parent)
-      if parent.nil?
-        RTFError.fire("Nil parent specified for text node.")
-      end
+      raise RTF::RTFError, 'Nil parent specified for text node.' if parent.nil?
+      
       @parent = parent
       @text   = text
     end
