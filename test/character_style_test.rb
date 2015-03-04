@@ -15,7 +15,7 @@ class CharacterStyleTest < Test::Unit::TestCase
 
     assert_nil   style.background
     assert_false style.bold
-    assert_false style.capitalise
+    assert_false style.capitalize
     assert_equal CharacterStyle::LEFT_TO_RIGHT, style.flow
     assert_nil   style.font
     assert_nil   style.font_size
@@ -37,7 +37,7 @@ class CharacterStyleTest < Test::Unit::TestCase
     style.bold = true
     assert_true style.bold
 
-    style.capitalise = true
+    style.capitalize = true
     assert_true style.capitalize
 
     style.flow = CharacterStyle::RIGHT_TO_LEFT
@@ -84,7 +84,7 @@ class CharacterStyleTest < Test::Unit::TestCase
     assert_equal '\b', style.prefix(nil, nil)
 
     style.bold       = false
-    style.capitalise = true
+    style.capitalize = true
     assert_equal '\caps', style.prefix(nil, nil)
 
     style.capitalize = false

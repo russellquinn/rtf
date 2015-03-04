@@ -15,7 +15,7 @@ module RTF
       @italic      = false
       @underline   = false
       @superscript = false
-      @capitalise  = false
+      @capitalize  = false
       @smallcaps   = false
       @strike      = false
       @subscript   = false
@@ -48,7 +48,7 @@ module RTF
       text << '\i' if @italic
       text << '\ul' if @underline
       text << '\super' if @superscript
-      text << '\caps' if @capitalise
+      text << '\caps' if @capitalize
       text << '\scaps' if @smallcaps
       text << '\strike' if @strike
       text << '\sub' if @subscript
@@ -61,8 +61,5 @@ module RTF
 
       text.string.length > 0 ? text.string : nil
     end
-
-    alias :capitalize :capitalise
-    alias :capitalize= :capitalise=
   end
 end
