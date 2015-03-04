@@ -27,7 +27,7 @@ module RTF
     def store(node)
       return if node.nil?
       
-      @children.push(node).uniq
+      @children.push(node)
       node.parent = self
       node
     end
