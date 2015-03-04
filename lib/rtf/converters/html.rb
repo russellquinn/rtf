@@ -1,123 +1,87 @@
-require 'nokogiri'
-require 'tidy'
+begin
+  require 'loofah'
+rescue LoadError
+  puts "Loofah is required to convert HTML. Please run `gem install loofah'"
+end
 
-module RTF::Converters
-  class HTML
+module RTF
+  module Converters
+    class HTML
 
-    def initialize(html, options = {})
-      html  = options[:noclean] ? html : clean(html, options[:tidy_options] || {})
-      @html = Nokogiri::HTML::Document.parse(html)
-    end
+      def initialize(html, options = {})
+        options = { clean: true }.merge(options)
+        @html = Loofah.fragment(html)
+        @html.scrub!(:strip) if options[:clean]
+      end
 
-    def to_rtf(options = {})
-      to_rtf_document(options).to_rtf
-    end
+      def to_rtf_document(options = {})
+        font  = Mapping::HTML.font(options[:font] || :default)
 
-    def to_rtf_document(options = {})
-      font  = Helpers.font(options[:font] || :default)
-      nodes = NodeSet.new @html.css('body').children
+        RTF::Document.new(font).tap do |rtf|
+          Mapping::HTML.to_rtf(@html.children, rtf)
+        end
+      end
 
-      RTF::Document.new(font).tap do |rtf|
-        nodes.to_rtf(rtf)
+      def to_rtf(options = {})
+        to_rtf_document(options).to_rtf
       end
     end
 
-    protected
-      def clean(html, options = {})
-        defaults = {
-          :doctype          => 'omit',
-          :bare             => true,
-          :clean            => true,
-          :drop_empty_paras => true,
-          :logical_emphasis => true,
-          :lower_literals   => true,
-          :merge_spans      => 1,
-          :merge_divs       => 1,
-          :output_html      => true,
-          :indent           => 0,
-          :wrap             => 0,
-          :char_encoding    => 'utf8'
-        }
+    module Mapping
+      module HTML
+        extend self
 
-        tidy = Tidy.new defaults.merge(options)
-        tidy.clean(html)
-      end
+        def font(key)
+          fonts = {
+            default:   [:roman,  'Times New Roman'],
+            monospace: [:modern, 'Courier New']
+          }
+          
+          RTF::Font.new(*fonts[key])
+        end
 
-    module Helpers
-      extend self
+        def style(key)
+          sizes = { h1: 44, h2: 36, h3: 28, h4: 22 }
 
-      def font(key)
-        RTF::Font.new(*case key
-          when :default   then [RTF::Font::ROMAN,  'Times New Roman']
-          when :monospace then [RTF::Font::MODERN, 'Courier New'    ]
-        end)
-      end
-
-      def style(key)
-        RTF::CharacterStyle.new.tap do |style|
-          case key.to_sym
-          when :h1
-            style.font_size = 44
-            style.bold = true
-          when :h2
-            style.font_size = 36
-            style.bold = true
-          when :h3
-            style.font_size = 28
-            style.bold = true
-          when :h4
-            style.font_size = 22
+          RTF::CharacterStyle.new.tap do |style|
+            style.font_size = sizes[key.to_sym]
             style.bold = true
           end
         end
-      end
-    end
 
-    class NodeSet
-      def initialize(nodeset)
-        @nodeset = nodeset
-      end
+        def to_rtf(node, rtf)
+          if !node.respond_to? :name
+            node.each { |n| to_rtf(n, rtf) }
+            return rtf
+          end
 
-      def to_rtf(rtf)
-        @nodeset.each do |node|
-          Node.new(node).to_rtf(rtf)
-        end
-      end
-    end
+          case node.name
+          when 'text'                   then rtf << node.text
+          when 'br'                     then rtf.line_break
+          when 'b', 'strong'            then rtf.bold &recurse(node.children)
+          when 'i', 'em', 'cite'        then rtf.italic &recurse(node.children)
+          when 'u'                      then rtf.underline &recurse(node.children)
+          when 'blockquote', 'p', 'div' then rtf.paragraph &recurse(node.children)
+          when 'span'                   then to_rtf(node.children, rtf)
+          when 'sup'                    then rtf.subscript &recurse(node.children)
+          when 'sub'                    then rtf.superscript &recurse(node.children)
+          when 'ul'                     then rtf.list :bullets, &recurse(node.children)
+          when 'ol'                     then rtf.list :decimal, &recurse(node.children)
+          when 'li'                     then rtf.item &recurse(node.children)
+          when 'a'                      then rtf.link node[:href], &recurse(node.children)
+          when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(style(node.name), &recurse(node.children)); rtf.line_break
+          when 'code'                   then rtf.font font(:monospace), &recurse(node.children)
+          else
+            # Unknown node type
+          end
 
-    class Node # :nodoc:
-      def initialize(node)
-        @node = node
-      end
-
-      def to_rtf(rtf)
-        case @node.name
-        when 'text'                   then rtf << @node.text.gsub(/\n+/, ' ').strip
-        when 'br'                     then rtf.line_break
-        when 'b', 'strong'            then rtf.bold &recurse
-        when 'i', 'em', 'cite'        then rtf.italic &recurse
-        when 'u'                      then rtf.underline &recurse
-        when 'blockquote', 'p', 'div' then rtf.paragraph &recurse
-        when 'span'                   then recurse.call(rtf)
-        when 'sup'                    then rtf.subscript &recurse
-        when 'sub'                    then rtf.superscript &recurse
-        when 'ul'                     then rtf.list :bullets, &recurse
-        when 'ol'                     then rtf.list :decimal, &recurse
-        when 'li'                     then rtf.item &recurse
-        when 'a'                      then rtf.link @node[:href], &recurse
-        when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(Helpers.style(@node.name), &recurse); rtf.line_break
-        when 'code'                   then rtf.font Helpers.font(:monospace), &recurse
-        else
-          #puts "Ignoring #{@node.to_html}"
+          rtf
         end
 
-        return rtf
+        def recurse(node)
+          lambda { |rtf| to_rtf(node, rtf) }
+        end
       end
-
-      def recurse
-        lambda {|rtf| NodeSet.new(@node.children).to_rtf(rtf)}
-      end
-    end
-
+    end      
   end
 end
