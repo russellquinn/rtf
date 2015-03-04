@@ -167,16 +167,16 @@ module RTF
     #              defaults to Document::CS_ANSI.
     # language::   The language setting to be applied to document. This
     #              defaults to Document::LC_ENGLISH_UK.
-    def initialize(font, style=nil, character=CS_ANSI, language=LC_ENGLISH_UK)
+    def initialize(font=nil, style=nil, character=CS_ANSI, language=LC_ENGLISH_UK)
       super(nil, '\rtf1')
-      @fonts         = FontTable.new(font)
+      @fonts         = FontTable.new(font || Font.new(:roman, 'Times New Roman'))
       @lists         = ListTable.new
       @default_font  = 0
       @colors       = ColorTable.new
       @information   = Information.new
       @character_set = character
       @language      = language
-      @style         = style == nil ? DocumentStyle.new : style
+      @style         = style || DocumentStyle.new
       @headers       = [nil, nil, nil, nil]
       @footers       = [nil, nil, nil, nil]
       @id            = 0
