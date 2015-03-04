@@ -9,7 +9,7 @@ include RTF
 IMAGE_FILE = 'rubyrtf.png'
 
 begin
-  document = Document.new(Font.new(Font::ROMAN, 'Times New Roman'))
+  document = Document.new(Font.new(:roman, 'Times New Roman'))
 
   # Add some text to the document and then add the scaled image.
   document.paragraph do |p|

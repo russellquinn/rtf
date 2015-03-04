@@ -43,8 +43,8 @@ class CharacterStyleTest < Test::Unit::TestCase
     style.flow = CharacterStyle::RIGHT_TO_LEFT
     assert_equal CharacterStyle::RIGHT_TO_LEFT, style.flow
 
-    style.font = Font.new(Font::ROMAN, 'Arial')
-    assert_equal Font.new(Font::ROMAN, 'Arial'), style.font
+    style.font = Font.new(:roman, 'Arial')
+    assert_equal Font.new(:roman, 'Arial'), style.font
 
     style.font_size = 38
     assert_equal 38, style.font_size
@@ -72,7 +72,7 @@ class CharacterStyleTest < Test::Unit::TestCase
   end
 
   def test_prefix
-    fonts   = FontTable.new(Font.new(Font::ROMAN, 'Arial'))
+    fonts   = FontTable.new(Font.new(:roman, 'Arial'))
     colors = ColorTable.new(Color.new(100, 100, 100))
     style   = CharacterStyle.new
 

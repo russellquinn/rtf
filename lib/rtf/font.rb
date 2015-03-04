@@ -3,21 +3,11 @@ require 'stringio'
 module RTF
   # This class represents a font for use with some RTF content.
   class Font
-    # A declaration for a font family. This family is used for monospaced
-    # fonts (e.g. Courier New).
-    MODERN = :modern
-
-    # A declaration for a font family. This family is used for proportionally
-    # spaced serif fonts (e.g. Arial, Times New Roman).
-    ROMAN = :roman
-
-    # A declaration for a font family. This family is used for proportionally
-    # spaced sans serif fonts (e.g. Tahoma, Lucida Sans).
-    SWISS = :swiss
-
-    # A declaration for a font family. This family is used where none of the
-    # other families apply.
-    NIL = :nil
+    # Available font families:
+    # :modern - monospaced fonts (e.g. Courier New)
+    # :roman - proportionally spaced serif fonts (e.g. Arial, Times New Roman)
+    # :swiss - proportionally spaced sans serif fonts (e.g. Tahoma, Lucida Sans)
+    # :nil - any other font family
 
     # Attribute accessor.
     attr_reader :family, :name
@@ -26,15 +16,15 @@ module RTF
     #
     # ==== Parameters
     # family::  The font family for the new font. This should be one of
-    #           Font::MODERN, Font::ROMAN, Font::SWISS or
-    #           Font::NIL.
+    #           :modern, :roman, :swiss or
+    #           :nil.
     # name::    A string containing the font name.
     #
     # ==== Exceptions
     # RTFError::  Generated whenever an invalid font family is specified.
     def initialize(family, name)
       # Check that a valid family has been provided.
-      if ![MODERN, ROMAN, SWISS, NIL].include?(family)
+      if !%w(modern roman swiss nil).include?(family.to_s)
         raise RTF::RTFError, 'Unknown font family specified for Font object.'
       end
       @family = family
@@ -59,7 +49,7 @@ module RTF
     #           method. Defaults to zero.
     def to_s(indent=0)
       prefix = indent > 0 ? ' ' * indent : ''
-      "#{prefix}Family: #{@family.id2name}, Name: #{@name}"
+      "#{prefix}Family: #{@family}, Name: #{@name}"
     end
 
     # This method generates the RTF representation for a Font object as it
@@ -70,7 +60,7 @@ module RTF
     #           method. Defaults to zero.
     def to_rtf(indent=0)
       prefix = indent > 0 ? ' ' * indent : ''
-      "#{prefix}\\f#{@family.id2name} #{@name};"
+      "#{prefix}\\f#{@family} #{@name};"
     end
   end
 end

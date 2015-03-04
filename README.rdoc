@@ -64,7 +64,7 @@ name space. This is a convenience mechanism that saves on specifically having
 to refer to the module when accessing the RTF library. Next we want to create
 an RTF document and that is done like this...
 
-   document = RTF::Document.new(RTF::Font.new(RTF::Font::ROMAN, 'Times New Roman'))
+   document = RTF::Document.new(RTF::Font.new(:roman, 'Times New Roman'))
 
 This line of code creates a new Document object, specifying that the default
 font for the document will the the Times New Roman font. So we have a document,
@@ -95,7 +95,7 @@ it in bold text. Heres the code that shows how to do that...
    03 styles['CS_CODE'] = CharacterStyle.new
    04
    05 styles['PS_CODE'].left_indent = 200
-   06 styles['CS_CODE'].font        = Font.new(Font::MODERN, 'Courier')
+   06 styles['CS_CODE'].font        = Font.new(:modern, 'Courier')
    07 styles['CS_CODE'].bold        = true
    08
    09 document.paragraph(styles['PS_CODE']) do |n1|

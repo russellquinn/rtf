@@ -17,7 +17,7 @@ styles['EMPHASISED'].underline   = true
 styles['NORMAL']                 = ParagraphStyle.new
 styles['NORMAL'].space_after     = 300
 
-document = Document.new(Font.new(Font::ROMAN, 'Arial'))
+document = Document.new(Font.new(:roman, 'Arial'))
 
 document.paragraph(styles['NORMAL']) do |p|
   p << 'This document is a simple programmatically generated file that is '

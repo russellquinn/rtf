@@ -6,8 +6,8 @@ require 'rtf'
 
 include RTF
 
-fonts = [Font.new(Font::ROMAN, 'Times New Roman'),
-         Font.new(Font::MODERN, 'Courier')]
+fonts = [Font.new(:roman, 'Times New Roman'),
+         Font.new(:modern, 'Courier')]
 
 styles = {}
 styles['PS_HEADING']              = ParagraphStyle.new

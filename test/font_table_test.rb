@@ -4,10 +4,10 @@ require 'test_helper'
 class FontTableTest < Test::Unit::TestCase
   def setup
     @fonts = []
-    @fonts.push(Font.new(Font::MODERN, "Courier New"))
-    @fonts.push(Font.new(Font::ROMAN, "Arial"))
-    @fonts.push(Font.new(Font::SWISS, "Tahoma"))
-    @fonts.push(Font.new(Font::NIL, "La La La"))
+    @fonts.push(Font.new(:modern, "Courier New"))
+    @fonts.push(Font.new(:roman, "Arial"))
+    @fonts.push(Font.new(:swiss, "Tahoma"))
+    @fonts.push(Font.new(:nil, "La La La"))
   end
 
   def test_01

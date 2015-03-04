@@ -4,20 +4,20 @@ require 'test_helper'
 class FontTest < Test::Unit::TestCase
   def test_01
     fonts = []
-    fonts.push(Font.new(Font::MODERN, "Courier New"))
-    fonts.push(Font.new(Font::ROMAN, "Arial"))
-    fonts.push(Font.new(Font::SWISS, "Tahoma"))
-    fonts.push(Font.new(Font::NIL, "La La La"))
+    fonts.push(Font.new(:modern, "Courier New"))
+    fonts.push(Font.new(:roman, "Arial"))
+    fonts.push(Font.new(:swiss, "Tahoma"))
+    fonts.push(Font.new(:nil, "La La La"))
 
     assert_equal fonts[0], fonts[0]
     refute_equal fonts[1], fonts[0]
     refute_equal 'a string of text', fonts[1]
-    assert_equal Font.new(Font::SWISS, "Tahoma"), fonts[2]
+    assert_equal Font.new(:swiss, "Tahoma"), fonts[2]
 
-    assert_equal Font::MODERN, fonts[0].family
-    assert_equal Font::ROMAN, fonts[1].family
-    assert_equal Font::SWISS, fonts[2].family
-    assert_equal Font::NIL, fonts[3].family
+    assert_equal :modern, fonts[0].family
+    assert_equal :roman, fonts[1].family
+    assert_equal :swiss, fonts[2].family
+    assert_equal :nil, fonts[3].family
 
     assert_equal 'Courier New', fonts[0].name
     assert_equal 'Arial', fonts[1].name

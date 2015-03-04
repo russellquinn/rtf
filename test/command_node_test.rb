@@ -100,7 +100,7 @@ class CommandNodeTest < Test::Unit::TestCase
 
   # Test applications of styles.
   def test_style
-    root  = Document.new(Font.new(Font::ROMAN, 'Arial'))
+    root  = Document.new(Font.new(:roman, 'Arial'))
     style = CharacterStyle.new
     style.bold = true
 
@@ -209,7 +209,7 @@ class CommandNodeTest < Test::Unit::TestCase
 
   # List object model test
   def test_list
-    root = Document.new(Font.new(Font::ROMAN, 'Arial'))
+    root = Document.new(Font.new(:roman, 'Arial'))
     root.list do |l1|
       assert_equal ListLevelNode, l1.class
       assert_equal 1, l1.level
@@ -236,7 +236,7 @@ class CommandNodeTest < Test::Unit::TestCase
   # This test checks the previous_node and next_node methods that could not be
   # fully and properly checked in the NodeTest.rb file.
   def test_peers
-    root  = Document.new(Font.new(Font::ROMAN, 'Arial'))
+    root  = Document.new(Font.new(:roman, 'Arial'))
     nodes = []
     nodes.push(root.paragraph)
     nodes.push(root.bold)

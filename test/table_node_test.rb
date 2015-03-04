@@ -3,7 +3,7 @@ require 'test_helper'
 # Information class unit test class.
 class TableNodeTest < Test::Unit::TestCase
   def setup
-    @document = Document.new(Font.new(Font::ROMAN, 'Times New Roman'))
+    @document = Document.new(Font.new(:roman, 'Times New Roman'))
     @colors  = []
 
     @colors << Color.new(200, 200, 200)

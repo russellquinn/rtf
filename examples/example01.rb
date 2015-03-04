@@ -19,7 +19,7 @@ styles['NORMAL'].justification = ParagraphStyle::FULL_JUSTIFY
 styles['INDENTED'] = ParagraphStyle.new
 styles['INDENTED'].left_indent = 400
 
-document = Document.new(Font.new(Font::ROMAN, 'Arial'))
+document = Document.new(Font.new(:roman, 'Arial'))
 document.paragraph do |p|
   p.apply(styles['HEADER']) do |s|
     s << '1.0 Introduction'
@@ -34,7 +34,7 @@ end
 c = 1
 document.paragraph(styles['INDENTED']) do |n1|
   n1.line_break
-  n1.font(Font.new(Font::MODERN, 'Courier New')) do |n2|
+  n1.font(Font.new(:modern, 'Courier New')) do |n2|
     n2 << "#{sprintf('%02d', c)}   File.open('output.txt', 'w') do |file|"
     c += 1
     n2.line_break

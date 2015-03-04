@@ -5,8 +5,8 @@ class DocumentTest < Test::Unit::TestCase
   def setup
     @fonts = FontTable.new
 
-    @fonts << Font.new(Font::ROMAN, 'Arial')
-    @fonts << Font.new(Font::MODERN, 'Courier')
+    @fonts << Font.new(:roman, 'Arial')
+    @fonts << Font.new(:modern, 'Courier')
   end
 
   def test_basics
