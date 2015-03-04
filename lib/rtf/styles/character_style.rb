@@ -3,15 +3,7 @@ require 'stringio'
 module RTF
   # This class represents a character style for an RTF document.
   class CharacterStyle < Style
-    # Attribute accessor.
-    attr_reader :bold, :italic, :underline, :superscript, :capitalise,
-                :strike, :subscript, :hidden, :foreground, :background,
-                :flow, :font, :font_size
-
-    # Attribute mutator.
-    attr_writer :bold, :italic, :underline, :superscript, :capitalise,
-                :strike, :subscript, :hidden, :foreground, :background,
-                :flow, :font, :font_size
+    attr_accessor :bold, :italic, :underline, :superscript, :capitalize, :smallcaps, :strike, :subscript, :hidden, :foreground, :background, :flow, :font, :font_size
 
     # This is the constructor for the CharacterStyle class.
     #
@@ -24,6 +16,7 @@ module RTF
       @underline   = false
       @superscript = false
       @capitalise  = false
+      @smallcaps   = false
       @strike      = false
       @subscript   = false
       @hidden      = false
@@ -56,6 +49,7 @@ module RTF
       text << '\ul' if @underline
       text << '\super' if @superscript
       text << '\caps' if @capitalise
+      text << '\scaps' if @smallcaps
       text << '\strike' if @strike
       text << '\sub' if @subscript
       text << '\v' if @hidden
