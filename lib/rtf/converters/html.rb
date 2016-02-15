@@ -72,7 +72,7 @@ module RTF
           when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(style(node.name), &recurse(node.children)); rtf.line_break
           when 'code'                   then rtf.font font(:monospace), &recurse(node.children)
           else
-            # Unknown node type
+            rtf << node.text
           end
 
           rtf
