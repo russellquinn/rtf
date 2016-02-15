@@ -41,7 +41,7 @@ module RTF
         end
 
         def style(key)
-          sizes = { h1: 44, h2: 36, h3: 28, h4: 22 }
+          sizes = { h1: 44, h2: 36, h3: 28, h4: 22, small: 18}
 
           RTF::CharacterStyle.new.tap do |style|
             style.font_size = sizes[key.to_sym]
@@ -70,6 +70,7 @@ module RTF
           when 'li'                     then rtf.item &recurse(node.children)
           when 'a'                      then rtf.link node[:href], &recurse(node.children)
           when 'h1', 'h2', 'h3', 'h4'   then rtf.apply(style(node.name), &recurse(node.children)); rtf.line_break
+          when 'small'                  then rtf.apply(style(node.name), &recurse(node.children))
           when 'code'                   then rtf.font font(:monospace), &recurse(node.children)
           else
             rtf << node.text
